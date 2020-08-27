@@ -1,0 +1,8 @@
+{
+  "name": "ionic-little-manufacturer",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "root": "apps/ionic-little-manufacturer"
+}

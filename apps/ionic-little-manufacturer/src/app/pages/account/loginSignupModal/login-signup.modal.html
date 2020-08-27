@@ -1,0 +1,151 @@
+
+<ion-content>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/tabs/account" (click)="dismiss()"></ion-back-button>
+          </ion-buttons>
+    </ion-toolbar>
+    <ion-grid>
+          <ion-row> 
+            <ion-col>
+              <ion-text class="welcomeMessage">
+                Bun venit la bord! 
+              </ion-text>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-evenly">
+            <ion-col [ngClass]="(loginOrSignup) ? 'activeBottomBorder' : 'passiveBottomBorder'"> 
+                    <ion-button   
+                    class="noBorder"
+                    fill="outline" color="primary-tint" 
+                    (click)="switchToLogin()">
+                    Intra in cont
+                    </ion-button>
+            </ion-col>
+            <ion-col [ngClass]="(!loginOrSignup) ? 'activeBottomBorder' : 'passiveBottomBorder'">
+                <ion-button 
+                class="noBorder"
+                fill="outline" color="primary-tint" 
+                (click)="switchToSignup()">
+                    Cont nou
+                </ion-button>
+        </ion-col>
+        </ion-row>
+        <ion-row *ngIf="loginOrSignup">
+            <ion-col>
+                <form [formGroup]="loginForm" (ngSubmit)="logIn(email, password)">    
+                    <ion-item lines="full">
+                    <ion-label position="floating">Email</ion-label>
+                    <ion-input (keydown)="onInput()" formControlName="email" type="text" #email></ion-input>
+                    </ion-item> 
+
+                    <ion-item lines="full">
+                    <ion-label position="floating">Password</ion-label>
+                    <ion-input (keydown)="onInput()" formControlName="password" type="password" #password ></ion-input>
+                    </ion-item>
+
+                    <ion-row>
+                      <ion-col> 
+                        <ion-button size="medium" expand="block" type="submit" expand="block">Login</ion-button>
+                      </ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                      <ion-col>
+                        <ion-router-link  class="underline">Forgot password?</ion-router-link>
+                      </ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                      <ion-col>
+                        <ion-text color="danger" *ngIf="(!loginForm.get('email').valid && loginForm.get('email').touched) && showLoginMessages">Introduceți o adresă de email validă.</ion-text>
+                      </ion-col>
+                    </ion-row>
+                    <ion-row>
+                      <ion-col>
+                        <ion-text color="danger" *ngIf="(!loginForm.get('password').valid && loginForm.get('password').touched) && showLoginMessages">Câmpul pentru parolă este obligatoriu.</ion-text>
+                      </ion-col>
+                    </ion-row>
+                    <ion-row>
+                      <ion-col>
+                        <ion-text color="danger" *ngIf="(errorMessageLogin != '') && showLoginMessages && this.loginForm.valid">{{errorMessageLogin}}</ion-text>
+                      </ion-col>
+                    </ion-row>
+                </form>
+            </ion-col>
+            
+        </ion-row>
+        <ion-row  *ngIf="!loginOrSignup">
+            <ion-col>
+                <form [formGroup]="signupForm" (ngSubmit)="signUp()" *ngIf="!verificationMailWasSent">    
+                    <ion-item lines="full">
+                      <ion-label position="floating">Adresa de email</ion-label>
+                      <ion-input (keydown)="onInput()" formControlName="email" type="text" ></ion-input>
+                      <ion-text color="danger" *ngIf="signupForm.get('email').hasError('email') && showSignupMessages">Adresa de email nu este valida.</ion-text>
+                      <ion-text color="danger" *ngIf="signupForm.get('email').hasError('required') && showSignupMessages">Introduceți adresa de email.</ion-text>
+                    </ion-item> 
+                
+                    <ion-item lines="full">
+                      <ion-label position="floating">Parola</ion-label>
+                      <ion-input (keydown)="onInput()" formControlName="password" type="password" ></ion-input>
+                      <ion-text color="danger" *ngIf="signupForm.get('password').hasError('minlength') && showSignupMessages">Parola trebuie să conțină minim 6 caractere.</ion-text>
+                      <ion-text color="danger" *ngIf="signupForm.get('password').hasError('required') && showSignupMessages">Introduceți o parolă.</ion-text>
+                    </ion-item>
+
+                    <ion-item lines="full">
+                      <ion-label position="floating">Confirma parola</ion-label>
+                      <ion-input (keydown)="onInput()" formControlName="confirmPassword" type="password" ></ion-input>
+                      <ion-text color="danger" *ngIf="signupForm.get('confirmPassword').hasError('mustMatch') && showSignupMessages">Parolele introduse nu corespund.</ion-text>
+                      <ion-text color="danger" *ngIf="signupForm.get('confirmPassword').hasError('required') && showSignupMessages">Confirmati parola.</ion-text>
+                    </ion-item> 
+
+                    <ion-row>
+                      <ion-col> 
+                      <ion-button (click)="signUp(email, password)" expand="block">Register</ion-button>
+                      </ion-col>
+                    </ion-row>
+                  </form>
+                  <ion-row>
+                    <ion-col>
+                      <ion-text color="danger" *ngIf="(errorMessageSignup != '') && showSignupMessages && this.signupForm.valid">{{errorMessageSignup}}</ion-text>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row *ngIf="verificationMailWasSent">
+                    <p>
+                      Please check your email and click on the link to verfiy your email address.
+                    </p>
+                    <ion-button type="submit" (click)="authService.SendVerificationMail()" expand="block">
+                      Resend Verification Email
+                    </ion-button>
+                  </ion-row>
+            </ion-col>
+        </ion-row>
+        <ion-row><ion-col><h6>SAU</h6></ion-col></ion-row>
+        <ion-row>
+            <ion-col> 
+                <ion-button 
+                 class="googleButton"
+                 type="submit" 
+                 (click)="authService.GoogleAuth()" 
+                 expand="block"
+                 fill="outline">
+                 <ion-icon slot="start" name="logo-google"></ion-icon>
+                   Login with Google
+                </ion-button>
+              </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col> 
+                <ion-button 
+                 type="submit" 
+                 color="facebook"
+                 (click)="authService.FacebookAuth()" 
+                 expand="block"
+                 fill="outline">
+                 <ion-icon slot="start" name="logo-facebook"></ion-icon>
+                   Login with Facebook
+                </ion-button>
+              </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

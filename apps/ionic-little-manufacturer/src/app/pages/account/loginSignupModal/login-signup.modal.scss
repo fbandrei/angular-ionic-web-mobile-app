@@ -1,0 +1,61 @@
+h6 {
+    overflow: hidden;
+    text-align: center;
+  }
+  
+  h6:before,
+  h6:after {
+    background-color: #000;
+    content: "";
+    display: inline-block;
+    height: 1px;
+    position: relative;
+    vertical-align: middle;
+    width: 50%;
+  }
+  
+  h6:before {
+    right: 0.5em;
+    margin-left: -50%;
+  }
+  
+  h6:after {
+    left: 0.5em;
+    margin-right: -50%;
+  }
+
+  ion-col {
+    text-align: center;
+  }
+ 
+  .activeBottomBorder {
+    border-bottom: 2px solid;
+    border-color: var(--ion-color-primary);
+  }
+  .passiveBottomBorder {
+    border-bottom: 2px solid;
+    border-color: gainsboro;
+  }
+
+  .welcomeMessage {
+    color: var(--ion-color-primary-shade);
+    font-size: 7vw;
+    font-weight: bold;
+  }
+
+  .noBorder {
+    --border-style: none;
+  }
+
+  ion-button {
+    size: large;
+  }
+
+  .googleButton {
+    --color: var(--ion-color-tertiary);
+    --border-color: var(--ion-color-tertiary);
+  }
+
+  ion-item {
+    --highlight-color-valid: var(--ion-color-primary-tint);
+  }

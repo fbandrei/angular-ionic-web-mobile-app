@@ -1,0 +1,17 @@
+{
+  "rules": {
+    "no-console": [true, "debug", "time", "timeEnd", "trace"],
+    "directive-selector": [
+      true,
+      "attribute",
+      "nx-little-manufacturer",
+      "camelCase"
+    ],
+    "component-selector": [
+      true,
+      "element",
+      "nx-little-manufacturer",
+      "kebab-case"
+    ]
+  }
+}

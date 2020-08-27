@@ -1,0 +1,97 @@
+<ion-header *ngIf="!authService.isLoggedIn" class="ion-no-border" >
+  <ion-grid>
+    <ion-row>
+      <ion-toolbar>
+        <ion-title class="ion-text-center" size="large">{{"welcomeTitle" | translate}}</ion-title>
+      </ion-toolbar>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div class="ion-text-center">
+          <ion-text>
+            {{"welcomeMessage" | translate}}
+          </ion-text>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="full" (click)="openSignInUpModal()">Sign in / Sign up</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-header>
+
+<ion-header class="ion-no-border" *ngIf="authService.isLoggedIn">
+  <ion-grid>
+    <ion-row>
+      <ion-toolbar>
+        <ion-title class="ion-text-center" size="large">{{"hello" | translate}}</ion-title>
+      </ion-toolbar>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="full" (click)="authService.SignOut()">Logout</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-header>
+
+<ion-content *ngIf="!authService.isLoggedIn" fullscreen>
+  <ion-grid>
+
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-list-header>
+            {{"settingsAndOthers" | translate}}
+          </ion-list-header>
+          <ng-container *ngTemplateOutlet="settingOptions"></ng-container>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-content *ngIf="authService.isLoggedIn" fullscreen>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-list-header>
+            {{"settingsAndOthers" | translate}}
+          </ion-list-header>
+          <ng-container *ngTemplateOutlet="settingOptions"></ng-container>
+          <ion-item>
+            <ion-label>
+              <h2>{{"profile" | translate}}</h2>
+            </ion-label>
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ng-template #settingOptions>
+  <ion-item (click)="openSettingsModal()">
+    <ion-label>
+      <h2>{{"settings" | translate}}</h2>
+    </ion-label>
+    <ion-icon name="chevron-forward-outline"></ion-icon>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      <h2>{{"about" | translate}}</h2>
+    </ion-label>
+    <ion-icon name="chevron-forward-outline"></ion-icon>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      <h2>{{"help" | translate}}</h2>
+    </ion-label>
+    <ion-icon name="chevron-forward-outline"></ion-icon>
+  </ion-item>
+</ng-template>
+

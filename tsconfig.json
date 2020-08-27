@@ -15,7 +15,13 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@nx-little-manufacturer/*": ["libs/*"],
+      "@nx-little-manufacturer/ionic": ["xplat/ionic/index.ts"],
+      "@nx-little-manufacturer/ionic/*": ["xplat/ionic/*"],
+      "@nx-little-manufacturer/web": ["xplat/web/index.ts"],
+      "@nx-little-manufacturer/web/*": ["xplat/web/*"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

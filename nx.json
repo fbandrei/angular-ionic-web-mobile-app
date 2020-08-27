@@ -18,5 +18,22 @@
       }
     }
   },
-  "projects": {}
+  "projects": {
+    "libs": {
+      "tags": []
+    },
+    "xplat": {
+      "tags": []
+    },
+    "web-little-manufacturer-web": {
+      "tags": []
+    },
+    "web-little-manufacturer-web-e2e": {
+      "tags": [],
+      "implicitDependencies": ["web-little-manufacturer-web"]
+    },
+    "ionic-little-manufacturer": {
+      "tags": []
+    }
+  }
 }

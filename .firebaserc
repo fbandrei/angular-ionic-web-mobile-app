@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "poetic-loop-277315"
+  },
+  "targets": {
+    "poetic-loop-277315": {
+      "hosting": {
+        "miculproducator": [
+          "miculproducator"
+        ]
+      }
+    }
+  }
+}

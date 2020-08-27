@@ -1,0 +1,86 @@
+// http://ionicframework.com/docs/theming/
+// App Global Sass
+// ----------------------------------------------------------------------------
+// Put style rules here that you want to apply globally. These styles are for
+// the entire app and not just one component. Additionally, this file can be
+// also used as an entry point to import other Sass files to be included in the
+// output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's default Sass
+// variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule for the .md, .ios,
+// or .wp mode classes. The mode class is automatically applied to the <body>
+// element in the app.
+@import '~@nx-little-manufacturer/ionic-scss/index';
+
+/**
+Color palettes for Little Manufacturer
+
+https://colorpalettes.net/color-palette-1811/
+https://colorpalettes.net/color-palette-1615/
+https://colorpalettes.net/color-palette-2034/
+https://colorpalettes.net/color-palette-322/
+https://colorpalettes.net/color-palette-590/
+
+Built my own color palette
+https://coolors.co/44bba0-edb458-dd614a-33658a-eeeeff
+
+**/
+
+:root {
+  --ion-color-primary: #44bba0;
+  --ion-color-primary-rgb: 68,187,160;
+  --ion-color-primary-contrast: white;
+  --ion-color-primary-contrast-rgb: 0,0,0;
+  --ion-color-primary-shade: #3ca58d;
+  --ion-color-primary-tint: #57c2aa;
+
+  --ion-color-secondary: #EDB458;
+  --ion-color-secondary-rgb: 237,180,88;
+  --ion-color-secondary-contrast: #000000;
+  --ion-color-secondary-contrast-rgb: 0,0,0;
+  --ion-color-secondary-shade: #d19e4d;
+  --ion-color-secondary-tint: #efbc69;
+
+  --ion-color-tertiary: #DD614A;
+  --ion-color-tertiary-rgb: 221,97,74;
+  --ion-color-tertiary-contrast: #000000;
+  --ion-color-tertiary-contrast-rgb: 0,0,0;
+  --ion-color-tertiary-shade: #c25541;
+  --ion-color-tertiary-tint: #e0715c;
+
+    --ion-color-facebook: #4267B2;
+    --ion-color-facebook-rgb: 66,103,178;
+    --ion-color-facebook-contrast: white;
+    --ion-color-facebook-contrast-rgb: 255,255,255;
+    --ion-color-facebook-shade: #3a5b9d;
+    --ion-color-facebook-tint: #5576ba;
+  }
+
+  .ion-color-facebook {
+    --ion-color-base: var(--ion-color-facebook);
+    --ion-color-base-rgb: var(--ion-color-facebook-rgb);
+    --ion-color-contrast: var(--ion-color-facebook-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-facebook-contrast-rgb);
+    --ion-color-shade: var(--ion-color-facebook-shade);
+    --ion-color-tint: var(--ion-color-facebook-tint);
+  }
+
+  .ion-color-secondary {
+    --ion-color-base: var(--ion-color-secondary);
+    --ion-color-base-rgb: var(--ion-color-secondary-rgb);
+    --ion-color-contrast: var(--ion-color-secondary-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-secondary-contrast-rgb);
+    --ion-color-shade: var(--ion-color-secondary-shade);
+    --ion-color-tint: var(--ion-color-secondary-tint);
+  }
+
+  .ion-color-tertiary {
+    --ion-color-base: var(--ion-color-tertiary);
+    --ion-color-base-rgb: var(--ion-color-tertiary-rgb);
+    --ion-color-contrast: var(--ion-color-tertiary-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-tertiary-contrast-rgb);
+    --ion-color-shade: var(--ion-color-tertiary-shade);
+    --ion-color-tint: var(--ion-color-tertiary-tint);
+  }

@@ -1,0 +1,12 @@
+{ 
+  "hello": "Hello!",
+  "welcomeTitle": "Welcome!",
+  "welcomeMessage": "Login or sing up in no time",
+  "settings": "Settings",
+  "language": "Language",
+  "about": "About",
+  "profile": "Edit profile",
+  "help": "Help",
+  "settingsAndOthers": "Settings and others"
+}
+

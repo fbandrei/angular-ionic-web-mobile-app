@@ -1,0 +1,19 @@
+
+<ion-content fullscreen>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-back-button defaultHref="/tabs/account" (click)="dismiss()"></ion-back-button>
+      </ion-buttons>
+</ion-toolbar>
+  <ion-list>
+    <ion-list-header>
+      {{"settings" | translate}}
+    </ion-list-header>
+    <ion-item>
+      <ion-label>{{"language" | translate}}</ion-label>
+      <ion-select #selectedLang (ionChange)="switchLang(selectedLang.value)">
+        <ion-select-option *ngFor="let language of translate.getLangs()" [value]="language">{{ language }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+</ion-content>

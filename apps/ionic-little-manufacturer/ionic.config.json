@@ -1,0 +1,7 @@
+{
+  "name": "littlemanufacturer",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
