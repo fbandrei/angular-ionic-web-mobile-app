@@ -1,0 +1,88 @@
+
+<ion-content>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/tabs/home" (click)="dismiss()"></ion-back-button>
+      </ion-buttons>
+  </ion-toolbar>
+  <ion-grid>
+      <ion-row> 
+          <ion-col>
+            <ion-text>
+              <h4>Add a post</h4>
+            </ion-text>
+          </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col>
+              <form [formGroup]="sellForm" (ngSubmit)="addPost()">    
+                <ion-item class="item-content">
+                  <ion-label position="floating">Title*</ion-label>
+                  <ion-input formControlName="title" type="text"></ion-input>
+                  <ion-text color="danger" *ngIf="title.hasError('required') && title.touched"> This field is mandatory.</ion-text>
+                </ion-item> 
+
+                <ion-item>
+                  <ion-label position="floating">Description*</ion-label>
+                  <ion-textarea formControlName="description" placeholder="Describe your products here, give as much information as possible."></ion-textarea>
+                  <ion-text color="danger" *ngIf="description.hasError('required') && description.touched"> This field is mandatory.</ion-text>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label>Category*</ion-label>
+                  <ion-select formControlName="category" placeholder="Select One">
+                    <ion-select-option *ngFor="let option of categories">{{option}}</ion-select-option>
+                  </ion-select>
+                  <ion-text color="danger" *ngIf="category.hasError('required') && category.touched"> This field is mandatory.</ion-text>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating">Phone Number*</ion-label>
+                  <ion-input formControlName="phoneNumber" type="text"></ion-input>
+                  <ion-text color="danger" *ngIf="phoneNumber.hasError('required') && phoneNumber.touched"> This field is mandatory.</ion-text>
+                  <ion-text color="danger" *ngIf="phoneNumber.touched && phoneNumber.invalid && phoneNumber.value"> Wrong format of the number.</ion-text>
+                </ion-item> 
+
+                <ion-item>
+                  <ion-label position="floating">Email</ion-label>
+                  <ion-input formControlName="email" type="text"></ion-input>
+                  <!-- <ion-text color="danger" *ngIf="email.hasError('required') && email.touched"> This field is mandatory.</ion-text> -->
+                  <ion-text color="danger" *ngIf="email.hasError('email') && email.touched">The email address is not valid.</ion-text>
+                </ion-item> 
+
+                <ion-item>
+                  <ion-label class="upload-label" position="floating">Upload images</ion-label>
+                  <ion-input formControlName="files" multiple type="file" (change)="fileUpload($event.target.files)" accept="image/png, image/jpeg"></ion-input>
+                </ion-item>
+
+                <ion-item *ngIf="imgURLs.length > 0">
+                  <ion-grid>
+                    <ion-row>
+                      <ion-label>Order the images as you want.</ion-label>
+                    </ion-row>
+                    <ion-row>
+                      <ion-list>
+                        <ion-reorder-group (ionItemReorder)="onRenderItems($event)" disabled="false">
+                          <ion-item *ngFor="let url of imgURLs">
+                            <ion-thumbnail slot="end">
+                              <img [src]="url | safe : 'url'">
+                            </ion-thumbnail>
+                            <ion-label></ion-label>
+                            <ion-reorder slot="start"></ion-reorder>
+                          </ion-item>
+                        </ion-reorder-group>
+                      </ion-list>
+                    </ion-row>
+                  </ion-grid>
+                </ion-item>
+
+                <ion-row>
+                  <ion-col> 
+                    <ion-button [disabled]="sellForm.invalid" size="medium" expand="block" type="submit" expand="block">Add Post</ion-button>
+                  </ion-col>
+                </ion-row>
+              </form>
+          </ion-col>
+      </ion-row>
+  </ion-grid>
+</ion-content>

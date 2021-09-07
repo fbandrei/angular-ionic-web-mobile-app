@@ -1,9 +1,9 @@
-import {Component, OnInit, ErrorHandler} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { AuthenticationService } from '@nx-little-manufacturer/core/services/auth.service';
-import { Router } from '@angular/router';
+import { AuthenticationService } from '@nx-little-manufacturer/core/services';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MustMatch } from '@nx-little-manufacturer/utils';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
     templateUrl: 'login-signup.modal.html',
     styleUrls: ['login-signup.modal.scss'],
@@ -11,7 +11,7 @@ import { MustMatch } from '@nx-little-manufacturer/utils';
 })
 export class LoginSignupModal implements OnInit {
 
-    loginOrSignup: boolean; // true for login and false for sing up
+    loginOrSignup: boolean; // true for login and false for sign up
     verificationMailWasSent: boolean; 
     showLoginMessages: boolean;
     showSignupMessages: boolean;
@@ -22,7 +22,7 @@ export class LoginSignupModal implements OnInit {
 
     constructor(private modalController: ModalController,
         public authService: AuthenticationService,
-        public router: Router,
+        public translate: TranslateService,
         private formBuilder: FormBuilder) {
     }
 
@@ -46,12 +46,36 @@ export class LoginSignupModal implements OnInit {
           validator: MustMatch('password', 'confirmPassword')
       });
 
-      this.authService.authProviderSubject.subscribe((value) => {
-          if (value == true) {
-            console.log(value);
+      this.authService.authProviderSubject.subscribe((value: string | boolean) => {
+          if (value === true) {
             this.dismiss();
           } else {
-
+            switch (value) {
+              case "auth/email-already-in-use": {
+                if (this.loginOrSignup) { 
+                  this.errorMessageLogin = 'auth/email-already-in-use';
+                } else {
+                  this.errorMessageSignup = 'auth/email-already-in-use';
+                }
+                break;
+              }
+              case "auth/network-request-failed": {
+                if (this.loginOrSignup) { 
+                  this.errorMessageLogin = 'auth/network-request-failed';
+                } else {
+                  this.errorMessageSignup = 'auth/network-request-failed';
+                }
+                break;
+              }
+              default: {
+                if (this.loginOrSignup) { 
+                  this.errorMessageLogin = 'auth/something-went-wrong';
+                } else {
+                  this.errorMessageSignup = 'auth/something-went-wrong';
+                }
+                break;
+              }
+            }
           }
       })
     }
@@ -76,26 +100,25 @@ export class LoginSignupModal implements OnInit {
     signUp(){
       this.showSignupMessages = false;
       if (this.signupForm.valid) {
-        this.authService.RegisterUser(this.signupForm.value.email, this.signupForm.value.password)
+        this.authService.registerUser(this.signupForm.value.email, this.signupForm.value.password)
         .then((res) => {
-          // Do something here
           console.log('res: ' + res);
-          this.authService.SendVerificationMail()
+          this.authService.sendVerificationMail()
           this.verificationMailWasSent = true;
         }).catch((error) => {
           console.log(error);
           this.showSignupMessages = true;
           switch (error.code) {
             case "auth/email-already-in-use": {
-              this.errorMessageSignup = 'Aceasta adresa de email este asociata cu un cont existent.';
+              this.errorMessageSignup = 'auth/email-already-in-use';
               break;
             }
             case "auth/network-request-failed": {
-              this.errorMessageSignup = 'Eroare de conexiune, verifica daca esti conectat la internet.';
+              this.errorMessageSignup = 'auth/network-request-failed';
               break;
             }
             default: {
-              this.errorMessageSignup = 'Ceva a mers gresit, incearca dinou.';
+              this.errorMessageSignup = 'auth/something-went-wrong';
               break;
             }
           }
@@ -109,19 +132,19 @@ export class LoginSignupModal implements OnInit {
       this.showLoginMessages = false; 
       if (this.loginForm.valid) {
         console.log(this.loginForm.value);
-        this.authService.SignIn(this.loginForm.value.email, this.loginForm.value.password)
+        this.authService.signIn(this.loginForm.value.email, this.loginForm.value.password)
           .then((res) => {
             if(this.authService.isEmailVerified) {
               this.dismiss();         
             } else {
               this.showLoginMessages = true;
-              this.errorMessageLogin = 'Contul nu este activat.';
+              this.errorMessageLogin = 'accountNotActive';
               return false;
             }
           }).catch((error) => {
             if (error.code == "auth/wrong-password" || error.code == "auth/user-not-found") {
               this.showLoginMessages = true;
-              this.errorMessageLogin = 'Datele introduse sunt incorecte.';
+              this.errorMessageLogin = 'auth/wrong-credentials';
             }
           })
       } else {

@@ -11,20 +11,20 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
-        loadChildren: () =>
-          import('../home/home.module').then((m) => m.HomeModule),
+        loadChildren: () => import('../home/home.module').then((m) => m.HomeModule)
       },
-      //   path: 'favorite',
-      //   loadChildren: () => import('../account/account.module').then( m => m.AccountModule)
-      // },
-      // {
-      //   path: 'sell',
-      //   loadChildren: () => import('../account/account.module').then( m => m.AccountModule)
-      // },
-      // {
-      //   path: 'message',
-      //   loadChildren: () => import('../account/account.module').then( m => m.AccountModule)
-      // },
+      {
+        path: 'favorite',
+        loadChildren: () => import('../account/account.module').then( m => m.AccountModule)
+      },
+      {
+        path: 'sell',
+        loadChildren: () => import('../account/account.module').then( m => m.AccountModule)
+      },
+      {
+        path: 'messages',
+        loadChildren: () => import('../account/account.module').then( m => m.AccountModule)
+      },
       {
         path: 'account',
         loadChildren: () => import('../account/account.module').then( m => m.AccountModule)

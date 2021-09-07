@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BaseComponent, AuthenticationService } from '@nx-little-manufacturer/core';
+import { BaseComponent } from '@nx-little-manufacturer/core/base';
+import { AuthenticationService } from '@nx-little-manufacturer/core/services';
 
 @Component({
   selector: 'page-home',

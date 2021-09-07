@@ -12,12 +12,12 @@
       <ion-label>Favorite</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="sell">
+    <ion-tab-button (click)="openSellModal()">
       <ion-icon name="add-circle-outline"></ion-icon>
       <ion-label>Sell</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="messages">
+    <ion-tab-button *ngIf="authService.isLoggedIn" tab="messages">
       <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
       <ion-label>Messages</ion-label>
     </ion-tab-button>

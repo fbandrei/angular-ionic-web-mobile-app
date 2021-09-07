@@ -1,24 +1,14 @@
 <nx-little-manufacturer-ion-header
-  [title]="'Ionic App'"
+  [title]="'Ionic Angular App'"
 ></nx-little-manufacturer-ion-header>
 
 <ion-content padding>
   <div class="p-20">
-    The world is your oyster.
-    <p>
-      If you get lost, the
-      <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/"
-        >docs</a
-      >
-      will be your guide.
-    </p>
-    <h2>{{ 'hello' | translate }}</h2>
-    <p>
-      Learn more about
-      <a href="https://nstudio.io/xplat" target="_blank">xplat</a>.
-    </p>
-
-    <ion-button type="submit" (click)="authService.SignOut()" expand="block">Logout</ion-button>
-    <ion-img src="../../../assets/imgs/farming.png"></ion-img> 
+    <!-- <ion-img src="../../../assets/imgs/farming.png"></ion-img>  -->
+    <!-- <ion-button *ngIf="!authService.isLoggedIn" type="submit" (click)="authService.signOut()" expand="block">Sign up / in</ion-button> -->
+    <!-- <ion-button *ngIf="authService.isLoggedIn" type="submit" (click)="authService.signOut()" expand="block">Logout</ion-button> -->
+    <div>
+       <page-ad></page-ad>
+    </div>
   </div>
 </ion-content>
