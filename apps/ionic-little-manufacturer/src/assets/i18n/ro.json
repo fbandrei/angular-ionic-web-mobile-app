@@ -5,8 +5,18 @@
     "settings": "Setari",
     "language": "Limba",
     "about": "Despre aplicatie",
-    "profile": "Editeaza profilul",
     "help": "Ajutor",
-    "settingsAndOthers": "Setari si altele"
+    "settingsAndOthers": "Setari si altele",
+
+    "profile": "Editeaza profilul",
+    "profileTitle": "Profil",
+    "profileName": "Nume",
+    "profileNamePlaceholder": "Numele tau",
+
+    "auth/email-already-in-use": "Adresa de email invalida sau folosita.",
+    "auth/network-request-failed": "Eroare de conexiune, verifica daca esti conectat la internet.",
+    "auth/something-went-wrong": "Ceva a mers gresit, incearca dinou.",
+    "auth/wrong-credentials": "Datele introduse sunt incorecte.",
+    "accountNotActive": "Contul tau nu a fost activat."
   }
   

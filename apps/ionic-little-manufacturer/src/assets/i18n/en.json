@@ -1,12 +1,22 @@
 { 
   "hello": "Hello!",
   "welcomeTitle": "Welcome!",
-  "welcomeMessage": "Login or sing up in no time",
+  "welcomeMessage": "Sign in / up in no time",
   "settings": "Settings",
   "language": "Language",
   "about": "About",
-  "profile": "Edit profile",
   "help": "Help",
-  "settingsAndOthers": "Settings and others"
+  "settingsAndOthers": "Settings and others",
+
+  "profile": "Edit profile",
+  "profileTitle": "Profile",
+  "profileName": "Name",
+  "profileNamePlaceholder": "Enter your name",
+
+  "auth/email-already-in-use": "Invalid email address.",
+  "auth/network-request-failed": "Connection error, check your internet connection.",
+  "auth/something-went-wrong": "Something went wrong, please try again.",
+  "auth/wrong-credentials": "Incorrect credentials, please try again.",
+  "accountNotActive": "Your account was not activated."
 }
 

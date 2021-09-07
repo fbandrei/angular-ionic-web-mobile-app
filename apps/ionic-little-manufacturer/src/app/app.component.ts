@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { Plugins, StatusBarStyle } from '@capacitor/core';
 const { StatusBar } = Plugins;
@@ -20,9 +20,10 @@ export class AppComponent {
     private storageService: StorageService
   ) {
     this.initializeApp();
-    translate.addLangs(['en', 'ro']);
+    this.translate.addLangs(['en', 'ro']);
     this.storageService.getString("language").then((lang) => {
-      translate.setDefaultLang(lang ? lang.value : 'en');
+      this.translate.setDefaultLang(lang ? lang.value : 'en');
+      this.translate.use(lang ? lang.value : 'en');
     });
   }
 
