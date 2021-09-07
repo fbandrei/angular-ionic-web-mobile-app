@@ -11,12 +11,20 @@
     "cap.update": "npx cap update"
   },
   "dependencies": {
-    "@capacitor/android": "~2.0.0",
-    "@capacitor/core": "~2.0.0",
-    "@capacitor/ios": "~2.0.0"
+    "@capacitor/android": "~3.2.2",
+    "@capacitor/core": "~3.2.2",
+    "@capacitor/ios": "~2.0.0",
+    "capacitor": "^0.5.5"
   },
   "devDependencies": {
-    "@capacitor/cli": "~2.0.0",
+    "@capacitor/cli": "~3.2.2",
     "@ionic/lab": "3.1.6"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaFeatures": {
+        "legacyDecorators": true
+      }
+    }
   }
 }

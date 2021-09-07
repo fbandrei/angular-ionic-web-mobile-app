@@ -1,0 +1,9 @@
+{
+"eslintConfig": {
+    "parserOptions": {
+      "ecmaFeatures": {
+        "legacyDecorators": true
+      }
+    }
+  }
+}

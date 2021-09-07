@@ -1,8 +1,13 @@
 {
-  "name": "ionic-little-manufacturer",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular",
-  "root": "apps/ionic-little-manufacturer"
+  "defaultProject": "ionic-little-manufacturer",
+  "projects": {
+    "ionic-little-manufacturer": {
+      "name": "ionic-little-manufacturer",
+      "integrations": {
+        "capacitor": {}
+      },
+      "type": "angular",
+      "root": "apps/ionic-little-manufacturer"
+    }
+  }
 }
