@@ -9,7 +9,7 @@ import { APP_BASE_HREF, CommonModule } from '@angular/common';
 
 // libs
 import { TranslateService } from '@ngx-translate/core';
-import { throwIfAlreadyLoaded, AuthenticationService } from '@nx-little-manufacturer/utils';
+import { SafePipe, throwIfAlreadyLoaded } from '@nx-little-manufacturer/utils';
 
 // app
 import { environment } from './environments/environment';
@@ -17,6 +17,7 @@ import { LogService } from './services/log.service';
 import { PlatformLanguageToken } from './services/tokens';
 import { WindowService } from './services/window.service';
 import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links/ngx';
+import { FirebaseModule } from './services/firebase/firebase.module';
 
 /**
  * DEBUGGING
@@ -24,7 +25,8 @@ import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links/ngx';
 LogService.DEBUG.LEVEL_4 = !environment.production;
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, FirebaseModule],
+  exports: [FirebaseModule]
 })
 export class CoreModule {
   // configuredProviders: *required to configure WindowService and others per platform

@@ -1,12 +1,11 @@
 import { Injectable, NgZone } from '@angular/core';
-import { auth } from 'firebase/app';
-import { User } from "../models/user.interface";
+import firebase from 'firebase/app';
+import { User } from "../../models/user.interface";
 import { Router } from "@angular/router";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Subject } from 'rxjs';
 import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links/ngx';
-
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +15,7 @@ export class AuthenticationService {
   userData: any;
   provider: string;
 
-  authProviderSubject = new Subject<any>();
+  authProviderSubject = new Subject<string | boolean>();
 
   constructor(
     public afStore: AngularFirestore,
@@ -42,37 +41,36 @@ export class AuthenticationService {
   }
 
   // Login in with email/password
-  SignIn(email, password) {
+  signIn(email: string, password: string) {
     return this.ngFireAuth.signInWithEmailAndPassword(email, password);
   }
 
   // Register user with email/password
-  RegisterUser(email, password) {
+  registerUser(email: string, password: string) {
     return this.ngFireAuth.createUserWithEmailAndPassword(email, password);
   }
 
   // Email verification when new user register
-  SendVerificationMail() {
-    return this.ngFireAuth.onAuthStateChanged((user) => {
-        user.sendEmailVerification();
-    }).then(() => {
-    })
+  async sendVerificationMail() {
+    await this.ngFireAuth.onAuthStateChanged((user) => {
+      user.sendEmailVerification();
+    });
   }
 
   // Recover password
-  PasswordRecover(passwordResetEmail) {
-    return this.ngFireAuth.sendPasswordResetEmail(passwordResetEmail)
-    .then(() => {
+  async passwordRecover(passwordResetEmail: string) {
+    try {
+      await this.ngFireAuth.sendPasswordResetEmail(passwordResetEmail);
       window.alert('Password reset email has been sent, please check your inbox.');
-    }).catch((error) => {
-      window.alert(error)
-    }) 
+    } catch (error) {
+      window.alert(error);
+    } 
   }
 
   // Returns true when user is looged in
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
-    return (user !== null && (user.emailVerified !== false || this.provider == 'facebook.com')) ? true : false;
+    return (user !== null && (user.emailVerified !== false || this.provider == 'facebook.com' || this.provider == 'google.com')) ? true : false;
   }
 
   // Returns true when user's email is verified
@@ -83,29 +81,28 @@ export class AuthenticationService {
 
   // Sign in with Gmail
   GoogleAuth() {
-    return this.AuthLogin(new auth.GoogleAuthProvider());
+    return this.authLogin(new firebase.auth.GoogleAuthProvider());
   }
 
   FacebookAuth() {
-    return this.AuthLogin(new auth.FacebookAuthProvider());
+    return this.authLogin(new firebase.auth.FacebookAuthProvider());
   }
 
   // Auth providers
-  AuthLogin(provider) {
-    return this.ngFireAuth.signInWithPopup(provider)
-    .then((result) => {
+  async authLogin(provider: firebase.auth.AuthProvider) {
+    try {
+      const result = await this.ngFireAuth.signInWithPopup(provider);
       console.log(result);
       this.authProviderSubject.next(true);
-      this.SetUserData(result.user);
+      this.setUserData(result.user);
       this.provider = result.additionalUserInfo.providerId;
-    }).catch((error) => {
-      this.authProviderSubject.next(error);
-      window.alert(error);
-    })
+    } catch (error) {
+      this.authProviderSubject.next(error.code);
+    }
   }
 
   // Store user in localStorage
-  SetUserData(user) {
+  setUserData(user: firebase.User) {
     const userRef: AngularFirestoreDocument<any> = this.afStore.doc(`users/${user.uid}`);
     const userData: User = {
       uid: user.uid,
@@ -120,11 +117,10 @@ export class AuthenticationService {
   }
 
   // Sign-out 
-  SignOut() {
-    return this.ngFireAuth.signOut().then(() => {
-      localStorage.removeItem('user');
-      this.router.navigate(['account']);
-    })
+  async signOut() {
+    await this.ngFireAuth.signOut();
+    localStorage.removeItem('user');
+    this.router.navigate(['tabs/account']);
   }
 
   resetPasswordInit(email: string) {
