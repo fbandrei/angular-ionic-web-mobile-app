@@ -31,7 +31,7 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-button expand="full" (click)="authService.SignOut()">Logout</ion-button>
+        <ion-button expand="full" (click)="authService.signOut()">Logout</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -62,7 +62,7 @@
             {{"settingsAndOthers" | translate}}
           </ion-list-header>
           <ng-container *ngTemplateOutlet="settingOptions"></ng-container>
-          <ion-item>
+          <ion-item (click)="openProfileModal()">
             <ion-label>
               <h2>{{"profile" | translate}}</h2>
             </ion-label>

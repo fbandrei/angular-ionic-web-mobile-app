@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { BaseComponent, AuthenticationService } from '@nx-little-manufacturer/core';
 import { LoginSignupModal } from './loginSignupModal/login-signup.modal';
-import {ModalController} from '@ionic/angular';
 import { SettingsModal } from './settingsModal/settings.modal';
+import { ProfileModal } from './profileModal/profile.modal';
+import { ModalController } from '@ionic/angular';
+import { BaseComponent } from '@nx-little-manufacturer/core/base';
+import { AuthenticationService } from '@nx-little-manufacturer/core/services';
 
 @Component({
   selector: 'page-account',
@@ -23,8 +25,9 @@ export class AccountComponent extends BaseComponent {
           componentProps: {}
     });
      
-    modal.onDidDismiss().then();
-    
+    modal.onDidDismiss().then(() => {
+      
+    });
     await modal.present();
   }
 
@@ -36,7 +39,24 @@ export class AccountComponent extends BaseComponent {
     });
      
     modal.onDidDismiss().then();
-    
     await modal.present();
   }
+
+  async openProfileModal() {
+    const modal: HTMLIonModalElement =
+       await this.modalController.create({
+          component: ProfileModal,
+          componentProps: {}
+    });
+     
+    modal.onDidDismiss().then();
+    await modal.present();
+  }
+}
+
+export interface Profile {
+  isProducer?: boolean;
+  name?: string;
+  description?: string;
+  location?: string;
 }
